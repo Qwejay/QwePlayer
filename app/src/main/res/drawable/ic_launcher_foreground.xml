@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    
+    <!-- 核心主体：纯色无描边音符 -->
+    <path
+        android:fillColor="#4285F4"
+        android:pathData="M 245,125 
+                          C 245,110 257,104 271,102 
+                          C 285,100 325,105 365,145 
+                          C 385,165 395,185 385,200 
+                          C 375,215 350,210 335,195 
+                          C 310,170 271,165 271,220 
+                          L 271,325 
+                          C 271,365 230,400 180,380 
+                          C 130,360 130,300 180,280 
+                          C 220,264 245,285 245,320 
+                          L 245,125 Z" />
+</vector>

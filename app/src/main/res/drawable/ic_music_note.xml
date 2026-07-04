@@ -1,0 +1,63 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- 1. 圆角底盒：黑曜石高级深色微渐变 -->
+    <path
+        android:pathData="M 148,32 L 364,32 A 116,116 0 0 1 480,148 L 480,364 A 116,116 0 0 1 364,480 L 148,480 A 116,116 0 0 1 32,364 L 32,148 A 116,116 0 0 1 148,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="256"
+                android:centerY="256"
+                android:gradientRadius="360"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#1A1C24"/>
+                <item android:offset="1.0" android:color="#0D0E12"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 2. 外壳极细边缘：钛合金描边 -->
+    <path
+        android:pathData="M 148,32 L 364,32 A 116,116 0 0 1 480,148 L 480,364 A 116,116 0 0 1 364,480 L 148,480 A 116,116 0 0 1 32,364 L 32,148 A 116,116 0 0 1 148,32 Z"
+        android:strokeWidth="0.8">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="0"
+                android:endY="512"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#33FFFFFF"/>
+                <item android:offset="1.0" android:color="#0DFFFFFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 3. 主体微弱的漫反射投影 (通过标准 <group> 标签进行平移) -->
+    <group android:translateY="4">
+        <path
+            android:pathData="M 176,336 m -32,0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0 M 296,306 m -32,0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0 M 192,160 L 208,160 L 208,336 L 192,336 Z M 312,130 L 328,130 L 328,306 L 312,306 Z M 192,130 L 328,96 L 328,132 L 192,166 Z"
+            android:fillColor="#1500F2FE" />
+    </group>
+
+    <!-- 4. 核心几何双音符：高亮冰川蓝渐变主体 -->
+    <path
+        android:pathData="M 176,336 m -32,0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0 M 296,306 m -32,0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0 M 192,160 L 208,160 L 208,336 L 192,336 Z M 312,130 L 328,130 L 328,306 L 312,306 Z M 192,130 L 328,96 L 328,132 L 192,166 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="144"
+                android:startY="336"
+                android:endX="328"
+                android:endY="96"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#00F2FE"/>
+                <item android:offset="1.0" android:color="#4FACFE"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+</vector>

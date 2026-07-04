@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    <!-- 铺满全屏的纯色背景，系统会自动对其进行形状（如圆角/圆形）裁剪 -->
+    <path
+        android:fillColor="#F1F3F4"
+        android:pathData="M 0,0 L 512,0 L 512,512 L 0,512 Z" />
+</vector>
