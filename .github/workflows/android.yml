@@ -46,6 +46,36 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Update Android Version From Git Tag
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        TAG_NAME="${{ github.ref_name }}"
+        VERSION_NAME="${TAG_NAME#v}"
+        
+        GRADLE_FILE=""
+        if [ -f "app/build.gradle.kts" ]; then
+          GRADLE_FILE="app/build.gradle.kts"
+        elif [ -f "app/build.gradle" ]; then
+          GRADLE_FILE="app/build.gradle"
+        fi
+        
+        if [ -n "$GRADLE_FILE" ]; then
+          echo "Found build file: $GRADLE_FILE"
+          echo "Updating versionName to: $VERSION_NAME"
+          sed -i -E "s/(versionName\s*=\s*[\"'])([^\"']*)([\"'])/\1$VERSION_NAME\3/g" "$GRADLE_FILE"
+          sed -i -E "s/(versionName\s+[\"'])([^\"']*)([\"'])/\1$VERSION_NAME\3/g" "$GRADLE_FILE"
+          
+          RUN_NUMBER="${{ github.run_number }}"
+          echo "Updating versionCode to: $RUN_NUMBER"
+          sed -i -E "s/(versionCode\s*=\s*)([0-9]+)/\1$RUN_NUMBER/g" "$GRADLE_FILE"
+          sed -i -E "s/(versionCode\s+)([0-9]+)/\1$RUN_NUMBER/g" "$GRADLE_FILE"
+          
+          echo "=== Verified Version Settings in Gradle ==="
+          grep -E "versionName|versionCode" "$GRADLE_FILE"
+        else
+          echo "Error: Build file not found. Version update skipped."
+        fi
+
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace
 
