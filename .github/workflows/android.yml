@@ -1,10 +1,13 @@
-name: Android Auto Build
+name: Android Auto Build & Release
 
 on:
   push:
     branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -46,8 +49,35 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace
 
+    - name: Rename and Standardize APK Name
+      run: |
+        APK_DIR="app/build/outputs/apk/debug"
+        if [ -f "$APK_DIR/app-debug.apk" ]; then
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            mv "$APK_DIR/app-debug.apk" "$APK_DIR/QwePlayer_${{ github.ref_name }}.apk"
+          else
+            SHORT_SHA=$(git rev-parse --short HEAD)
+            mv "$APK_DIR/app-debug.apk" "$APK_DIR/QwePlayer_${{ github.ref_name }}_${SHORT_SHA}.apk"
+          fi
+          echo "Successfully renamed APK to standard format."
+        else
+          echo "Error: app-debug.apk not found. Skipping rename."
+        fi
+
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: qwe-player-apk
         path: app/build/outputs/apk/debug/*.apk
+
+    - name: Create and Publish GitHub Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: app/build/outputs/apk/debug/*.apk
+        name: "QwePlayer Release ${{ github.ref_name }}"
+        body: |
+          这是由 GitHub Actions 自动构建并发布的版本。
+          包含最新代码变更与离线 AI 语音识别模型。
+        draft: false
+        prerelease: false
